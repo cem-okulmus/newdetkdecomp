@@ -52,7 +52,7 @@ DetKDecomp::~DetKDecomp()
 The method selects an initial subset within a set of hyperedges such that a given set of 
 nodes is covered.
 
-INPUT:	Nodes: Array of nodes to be covered
+INPUT:	Vertices: Array of nodes to be covered
 		Edges: Array of hyperedges
 		bInComp: Boolean array indicating the position of each hyperedge
 		iSize: Number of elements in Edges, bInComp, and CovWeights
@@ -72,10 +72,10 @@ int DetKDecomp::setInitSubset(const VertexSet &Vertices, HyperedgeVector &Edges,
 		v->setLabel(0);
 
 	// Sort hyperedges according to their weight,
-	// i.e., the number of nodes in Nodes they contain
+	// i.e., the number of nodes in Vertices they contain
 	e = 0;
 	for(auto he : Edges) {
-		he->setLabel((int)InComp[e]);
+		he->setLabel((int)InComp[e]); //c implicit: incomp must be of equal size to edges
 		CovWeights[e] = 0;
 		for(auto v : he->allVertices())
 			if(v->getLabel() == 0)
@@ -87,8 +87,8 @@ int DetKDecomp::setInitSubset(const VertexSet &Vertices, HyperedgeVector &Edges,
 
 	// Reset bInComp and summarize weights
 	for(int i=0; i < (int)Edges.size(); i++) {
-		Edges[i]->getLabel() == 0 ? InComp[i] = false : InComp[i] = true;
-		CovWeights[i] = -CovWeights[i];
+		Edges[i]->getLabel() == 0 ? InComp[i] = false : InComp[i] = true; //c frei nach dem Motto: Doppelt hält besser?
+		CovWeights[i] = -CovWeights[i]; //c damit die covweights positiv sind? Ordnung wird erhalten
 	}
 	weight = 0;
 	for(int i=(int)Edges.size()-1; i >= 0; i--) {
@@ -492,11 +492,11 @@ HypertreeSharedPtr DetKDecomp::decomp(const HyperedgeVector &HEdges, const Verte
 
 	HyperedgeVector inner_edges, bound_edges, add_edges;
 
-	/*
+	//c output Hedges
 	for (int k = 0; k <= RecLevel; k++)
 		cout << "+";
-	cout << " " << *HEdges << endl;
-	*/
+	cout << " " << HEdges << endl;
+	
 
 	if ((htree = decompTrivial(HEdges, Connector)) != nullptr)
 		return htree;	
@@ -526,6 +526,13 @@ HypertreeSharedPtr DetKDecomp::decomp(const HyperedgeVector &HEdges, const Verte
 
 	if(nbr_sel_cov >= 0)
 		do {
+			//c output set
+			cout << "current subset: { ";
+			for(int i = 0; i < cov_sep_set.size();i++){
+				cout << cov_sep_set[i];
+				i == (cov_sep_set.size() - 1) ? cout << " }" : cout << ", ";
+			}
+
 			// Check whether a covering hyperedge within the component was selected
 			add_edge = true;
 			for(i=0; i < nbr_sel_cov; i++)
@@ -770,7 +777,7 @@ HypertreeSharedPtr DetKDecomp::buildHypertree()
 	// Order hyperedges heuristically
 	HEdges = MyHg->getMCSOrder();
 
-     	//cout << HEdges << endl;
+	cout << HEdges << endl;
 
 	// Store initial heuristic order as weight
 	//for(int i=0; i < HEdges.size(); i++)

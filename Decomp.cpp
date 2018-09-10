@@ -40,8 +40,8 @@ size_t Decomp::separate(const SeparatorSharedPtr &sep, const HyperedgeVector &ed
 	}
 
 	for (auto &he : edges)
-		if (eLabels[he] == 0) {
-			DecompComponent comp(static_pointer_cast<BaseSeparator>(sep));
+		if (eLabels[he] == 0) { //c only true for edges not in separator (or already visited component)
+			DecompComponent comp = DecompComponent(static_pointer_cast<BaseSeparator>(sep));
 			label++;
 
 			comp.add(he);
@@ -50,7 +50,7 @@ size_t Decomp::separate(const SeparatorSharedPtr &sep, const HyperedgeVector &ed
 			//find all edges reachable from the current component
 			for (int i = 0; i < comp.size(); i++) {
 				for (auto &v : comp[i]->allVertices()) {
-					if (vLabels[v] == 0) {
+					if (vLabels[v] == 0) { //c only true for vertices not contained in separator edges (or already visited component)
 						vLabels[v] = label;
 						for (auto &he : MyHg->allVertexNeighbors(v))
 							if (eLabels[he] == 0) {
@@ -67,13 +67,16 @@ size_t Decomp::separate(const SeparatorSharedPtr &sep, const HyperedgeVector &ed
 	return partitions.size();
 }
 
+//c an optimization: make a trivial node if all edges fit into one (or two) lambda-label(s)
 HypertreeSharedPtr Decomp::decompTrivial(const HyperedgeVector &edges, const VertexSet &connector) const
 {
 	HypertreeSharedPtr htree{ nullptr };
 	size_t total_weight = 0;
 
 	for (auto &e : edges)
-		total_weight += e->getWeight();
+		total_weight += e->getWeight();	//c what's up with the weights?
+		//c wouldn't in this context 'total_weight = edges->size();' be equal to this?
+		
 	
 	// Stop if the hypergraph can be decomposed into a single hypertree-node
 	if (total_weight <= MyK)
@@ -81,6 +84,7 @@ HypertreeSharedPtr Decomp::decompTrivial(const HyperedgeVector &edges, const Ver
 
 	if (connector.size() == 0) {
 		// check if there are heavy edges (weight != cnt)
+		//c So 'heavy edge' = weight  > 1 ?
 		if (edges.size() == total_weight) {
 			// Stop if the hypergraph can be decomposed into two hypertree-nodes 
 			if ((edges.size() > 1) && ((int)ceil(edges.size() / 2.0) <= MyK)) {
@@ -163,7 +167,7 @@ HypertreeSharedPtr Decomp::getHTNode(const HyperedgeVector &comp, const Hyperedg
 	for (auto &e : lambda) {
 		HTree->insLambda(e);
 		for (auto &v : e->allVertices())
-			if (vcomp.find(v) != vcomp.end() && (Super == nullptr || Super->find(v) != nullptr))
+			if (vcomp.find(v) != vcomp.end() && (Super == nullptr || Super->find(v) != nullptr)) //c what does superedge do here?
 				HTree->insChi(v);
 	}
 
@@ -194,8 +198,8 @@ HypertreeSharedPtr Decomp::getHTNode(const HyperedgeVector &comp, const Hyperedg
 
 HypertreeSharedPtr Decomp::getCutNode(int label, const HyperedgeVector & lambda, const VertexSet & ChiConnect) const
 {
-	HypertreeSharedPtr htree = getHTNode(lambda, lambda, ChiConnect);
-	htree->setCut();
+	HypertreeSharedPtr htree = getHTNode(lambda, lambda, ChiConnect); //c default values are in Decomp.h!
+	htree->setCut(); //c how does this make sense?
 	htree->setLabel(label);
 	return htree;
 }
