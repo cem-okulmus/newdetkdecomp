@@ -581,8 +581,8 @@ HypertreeSharedPtr DetKDecomp::decomp(const HyperedgeVector &HEdges, const Verte
 					
 					if (add_edge)
 						separator->insert(add_edges[i_add]);
-					cout << "Seperator: " << separator->MySep;
-					
+					cout << "Seperator: " << separator->MySep << endl;
+
 					SubedgeSeparatorFactory sub_sep_fac;
 
 					do {
