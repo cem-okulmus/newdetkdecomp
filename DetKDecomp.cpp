@@ -708,8 +708,8 @@ HypertreeSharedPtr DetKDecomp::decomp(const HyperedgeVector &HEdges, const Verte
 								htree = getHTNode(HEdges, separator, Connector, Subtrees);
 
 								// Output considered ht node
-								cout << "produced ht node with Lambda: " << htree->getLambda
-									<< " and Chi: " << htree->getChi << endl;
+								// cout << "produced ht node with Lambda: " << htree->getLambda
+								// 	<< " and Chi: " << htree->getChi << endl;
 							}
 						}
 
