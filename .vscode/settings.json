@@ -7,7 +7,9 @@
         "unordered_set": "cpp",
         "vector": "cpp",
         "initializer_list": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "string_view": "cpp",
+        "utility": "cpp"
     },
     "files.exclude": {
         "**/*.o": true,

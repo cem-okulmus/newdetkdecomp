@@ -530,8 +530,22 @@ HypertreeSharedPtr DetKDecomp::decomp(const HyperedgeVector &HEdges, const Verte
 			cout << "current subset: { ";
 			for(int i = 0; i < cov_sep_set.size();i++){
 				cout << cov_sep_set[i];
-				i == (cov_sep_set.size() - 1) ? cout << " }" : cout << ", ";
+				i == (cov_sep_set.size() - 1) ? cout << " }"<< endl : cout << ", ";
 			}
+
+					//c output set
+			cout << "current incomp: { ";
+			for(int i = 0; i < in_comp.size();i++){
+				cout << in_comp[i];
+				i == (in_comp.size() - 1) ? cout << " }"<< endl : cout << ", ";
+			}
+
+					//c output set
+			cout << "current inner: ";
+			cout << inner_edges<< endl;
+
+			cout << "current bound: " ;
+			cout << bound_edges << endl;
 
 			// Check whether a covering hyperedge within the component was selected
 			add_edge = true;
