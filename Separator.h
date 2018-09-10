@@ -11,9 +11,10 @@
 class Separator : public BaseSeparator
 {
 private:
-	HyperedgeVector MySep;
+	
 
 public:
+	HyperedgeVector MySep;
 	Separator() {};
 	Separator(const HyperedgeVector &sep) : MySep{ sep } {}
 
