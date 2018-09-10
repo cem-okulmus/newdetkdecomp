@@ -1,3 +1,0 @@
-rel1(a,b),
-rel2(b,d),
-rel3(d,a).
