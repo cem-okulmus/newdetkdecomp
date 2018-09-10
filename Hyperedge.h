@@ -79,6 +79,7 @@ public:
 	virtual size_t getWeight() const { return 1; }
 
 	friend std::ostream& operator<< (std::ostream &out, const Hyperedge &he);
+	
 };
 
 
@@ -88,6 +89,8 @@ using HyperedgeVector = std::vector<HyperedgeSharedPtr>;
 
 // Outputs a set of hyperedges
 std::ostream& operator<< (std::ostream &out, const HyperedgeVector &he);
+
+std::ostream& operator<< (std::ostream &out, const HyperedgeSet &he);
 #endif
 
 
