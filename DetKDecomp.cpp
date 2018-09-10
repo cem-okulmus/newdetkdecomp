@@ -642,6 +642,12 @@ HypertreeSharedPtr DetKDecomp::decomp(const HyperedgeVector &HEdges, const Verte
 						// Separate hyperedges into partitions with corresponding connector nodes
 						nbr_of_parts = separate(separator, HEdges, partitions);
 
+						cout << "nbr of parts: " << nbr_of_parts << endl;
+						// Output partitions
+						for(auto p : partitions)
+							cout << "comp: " << p.component << " conn: " << p.connector << endl;
+
+
 						// Create auxiliary array
 						cut_parts.clear();
 						cut_parts.resize(nbr_of_parts);
