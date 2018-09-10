@@ -98,3 +98,16 @@ std::ostream & operator<<(std::ostream & out, const HyperedgeVector & he)
 
 	return out;
 }
+
+std::ostream & operator<<(std::ostream & out, const HyperedgeSet & he)
+{
+	out << "(";
+	for (auto it = he.cbegin(); it != he.cend();) {
+		out << (*it)->getName();
+		if (++it != he.cend())
+			out << ",";
+	}
+	out << ")";
+
+	return out;
+}
