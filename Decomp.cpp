@@ -170,7 +170,6 @@ HypertreeSharedPtr Decomp::getHTNode(const HyperedgeVector &comp, const Hyperedg
 			if (vcomp.find(v) != vcomp.end() && (Super == nullptr || Super->find(v) != nullptr)) //c what does superedge do here?
 				HTree->insChi(v);
 	}
-	(&HTree)->get()->getChi();
 	// Insert additional chi-labels to guarantee connectedness
 	for (auto &v : ChiConnect)
 		HTree->insChi(v);
