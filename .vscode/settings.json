@@ -9,6 +9,11 @@
         "initializer_list": "cpp",
         "iostream": "cpp"
     },
+    "files.exclude": {
+        "**/*.o": true,
+        "bin/": true
+    },
+    
     "editor.fontLigatures": true,
     "editor.wordWrap": "on"
 }
