@@ -581,7 +581,7 @@ HypertreeSharedPtr DetKDecomp::decomp(const HyperedgeVector &HEdges, const Verte
 					
 					if (add_edge)
 						separator->insert(add_edges[i_add]);
-					cout << "Seperator: " << separator->MySep << endl;
+					cout << "Seperator: " << separator->edges() << endl;
 
 					SubedgeSeparatorFactory sub_sep_fac;
 
@@ -714,7 +714,7 @@ HypertreeSharedPtr DetKDecomp::decomp(const HyperedgeVector &HEdges, const Verte
 								htree = getHTNode(HEdges, separator, Connector, Subtrees);
 
 								// Output considered ht node
-								cout << "produced ht node with Lambda: " << (&htree)->get()->getLambda()
+								cout << "produced ht node with Lambda: " << htree->getLambda() //<< (&htree)->get()->getLambda()
 									<< " and Chi: " << (&htree)->get()->getChi() << endl;
 							}
 						}

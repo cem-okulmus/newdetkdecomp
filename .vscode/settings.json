@@ -17,8 +17,13 @@
     },
     "files.exclude": {
         "**/*.o": true,
-        "bin/": true
-    },
+        "bin/": true,
+        ".vscode":true,
+        ".*" : true,
+        "notes": true,
+        "Makefile" : true,
+        "README*" : true
+    }, 
     
     "editor.fontLigatures": true,
     "editor.wordWrap": "on"
