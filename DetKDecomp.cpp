@@ -495,8 +495,8 @@ HypertreeSharedPtr DetKDecomp::decomp(const HyperedgeVector &HEdges, const Verte
 	//c output Hedges
 	for (int k = 0; k <= RecLevel; k++)
 		cout << "+";
-	cout << " Component: " << HEdges << endl;
-	cout << " Connector: " << Connector << endl;
+	cout << " Component: " << HEdges 
+ 		 << " Connector: " << Connector << endl;
 
 	if ((htree = decompTrivial(HEdges, Connector)) != nullptr)
 		return htree;	
