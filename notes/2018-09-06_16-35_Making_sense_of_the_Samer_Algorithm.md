@@ -6,3 +6,6 @@
 * How does coverNodes iterate through HEdges to select the next Subset
 
 * Exact meaning of inComp boolean array in coverNodes
+    Uses data from divideCompEdge, indicates which bound Edges are part of HEdges (in component)
+
+* Decomp arguments: The new component as HyperEdges (instead of vertices as in original Gottlob et al.), and the old seperator as verticse (connector between new component and old seperator) instead of Hyperedges

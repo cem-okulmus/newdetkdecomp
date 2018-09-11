@@ -197,8 +197,8 @@ HypertreeSharedPtr Decomp::getHTNode(const HyperedgeVector &comp, const Hyperedg
 
 HypertreeSharedPtr Decomp::getCutNode(int label, const HyperedgeVector & lambda, const VertexSet & ChiConnect) const
 {
-	HypertreeSharedPtr htree = getHTNode(lambda, lambda, ChiConnect); //c default values are in Decomp.h!
-	htree->setCut(); //c how does this make sense?
+	HypertreeSharedPtr htree = getHTNode(lambda, lambda, ChiConnect); 
+	htree->setCut();
 	htree->setLabel(label);
 	return htree;
 }
