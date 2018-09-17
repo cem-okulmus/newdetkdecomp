@@ -38,7 +38,7 @@ SuperedgeSharedPtr Superedge::getSuperedge(const HyperedgeVector &Edges, const V
 	for (auto he : Edges) {
 		for (auto v : he->allVertices()) {
 			if (VetComp.find(v) != VetComp.end())
-				vertices.insert(v);
+				vertices.insert(v); //c collect all vertices in Edges that also occur in Vetcomp
 		}
 	}
 
@@ -48,10 +48,10 @@ SuperedgeSharedPtr Superedge::getSuperedge(const HyperedgeVector &Edges, const V
 		if (se->getNbrOfVertices() == vertices.size()) {
 			found = true;
 			for (auto it = se->allVertices().begin(); it != se->allVertices().end() && found; it++)
-				if ((*it)->getLabel() != -1 || VetComp.find(*it) == VetComp.end())
+				if ((*it)->getLabel() != -1 || VetComp.find(*it) == VetComp.end()) //c QUESTION what's the meaning of label -1 here?
 					found = false;
 
-			if (found)
+			if (found) //c Contains right amount of vertices, and only edges in Edges
 				return se;
 		}
 

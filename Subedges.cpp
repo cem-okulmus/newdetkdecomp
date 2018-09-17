@@ -14,7 +14,7 @@ void Subedges::init(const HyperedgeSharedPtr &he)
 {
 	auto entry = MySubedges.find(he);
 	
-	if (entry == MySubedges.end()) {
+	if (entry == MySubedges.end()) { //c skip if already in MySubedges
 		//Generate all subedges of he and store in MySubedges
 		int i{ 0 }, n, k{ MyK };
 		//HE_VEC* sub_edges = new HE_VEC();
@@ -22,12 +22,12 @@ void Subedges::init(const HyperedgeSharedPtr &he)
 		HyperedgeVector neighbors;
 
 		for (auto e : MyHg->allEdgeNeighbors(he))
-			if (!e->isHeavy())
+			if (!e->isHeavy()) //c skipping Superedges -> missing implemenation?
 			   neighbors.push_back(e);
 		n = neighbors.size();
 		if (n < k) k = n;
 
-		if (n > 0)
+		if (n > 0) //c skip if no neighbours
 		{
 			VertexSet new_vertices;
 			HyperedgeSharedPtr new_edge;

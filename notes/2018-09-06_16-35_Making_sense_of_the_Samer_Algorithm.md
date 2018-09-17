@@ -11,3 +11,8 @@
 * Decomp arguments: The new component as HyperEdges (instead of vertices as in original Gottlob et al.), and the old seperator as verticse (connector between new component and old seperator) instead of Hyperedges
 
 * Advanced Algorithms: First an extension the Samer algorithm to deal with GHD (Global and Local BIP?), then one to produce FHD by "fractionally improving" a GHD (FracImprove), and last an optmiziation on the GHD algorithm (BalSepK). Leaves only RankFHD unexplained
+
+QUESTION: Why use Set and Vector at various places?
+QUESTION: Don't undestand the "reroot" bit in the Benchmark paper
+QUESTION Source and explanation on Rank
+QUESTION Ask for a walkthrough of BalSe

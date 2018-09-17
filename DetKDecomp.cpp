@@ -719,6 +719,7 @@ HypertreeSharedPtr DetKDecomp::decomp(const HyperedgeVector &HEdges, const Verte
 							}
 						}
 
+						//c In LocalBipK: First try finding a Hypertree normally, then include subedges and continue searching
 						if (MyBIP && htree == nullptr) {
 							//Start sub_edge procedure
 							if (!sub_edge) {
@@ -735,7 +736,7 @@ HypertreeSharedPtr DetKDecomp::decomp(const HyperedgeVector &HEdges, const Verte
 							} 
 
 							// All subedge separators tried
-							if (separator->size() == 0)
+							if (separator->size() == 0) //c all seperators with subedges have been tried
 								sub_edge = false;
 						}
 

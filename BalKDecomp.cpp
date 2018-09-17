@@ -28,7 +28,7 @@ HypertreeSharedPtr BalKDecomp::decomp(const HyperedgeVector &Edges)
 	int *indices;
 	HyperedgeVector sep_edges; //Edges to consider for the separator
 	SuperedgeSharedPtr sep_edge;
-	VertexSet vertices;
+	VertexSet vertices; //c all vertices occuring in Edges
 	int cnt_bal{ 0 }, cnt_sub_bal{ 0 };
 
 	if ((htree = decompTrivial(Edges, VertexSet())) != nullptr)
@@ -47,7 +47,7 @@ HypertreeSharedPtr BalKDecomp::decomp(const HyperedgeVector &Edges)
 		for (auto v : he->allVertices())
 			vertices.insert(v);
 
-	//cout << "Decomposing: " << vertices << endl;
+	cout << "Edges: " << Edges << endl;
 
 	// Find balanced separators
 	while ((indices = comb.next()) != nullptr && htree == nullptr) {
@@ -61,7 +61,11 @@ HypertreeSharedPtr BalKDecomp::decomp(const HyperedgeVector &Edges)
 			sep->push_back(he);
 		}
 
+		cout << "Sep: " << sep << endl;
+
 		nbr_parts = separate(sep,Edges,partitions);
+
+		cout << "nbr_parts" << nbr_parts << endl;
 
 		if (isBalanced(partitions, Edges.size())) {
 			sep_edge = Superedge::getSuperedge(sep->edges(), vertices);
@@ -133,11 +137,11 @@ HypertreeSharedPtr BalKDecomp::decomp(const HyperedgeVector &Edges)
 							for (auto e : sep->allEdges())
 								e->setAllLabels(-1);
 
-							/*
-							for (int i = 0; i < MyRecLevel; i++)
-							cout << "+";
-							cout << " " << *Sep << ": " << *Sup  << endl;
-							*/
+							
+							// for (int i = 0; i < MyRecLevel; i++)
+							// cout << "+";
+							// cout << " " << sep << ": " << *Sup  << endl;
+							
 
 							htree = getHTNode(Edges, sep, VertexSet(), subtrees, sep_edge);
 						}
@@ -228,7 +232,7 @@ HyperedgeVector BalKDecomp::getNeighborEdges(const HyperedgeVector &Edges) const
 					neighbors.push_back(n);
 	}
 
-	return neighbors;
+	return neighbors; //c contains HEs in edges plus all connected components
 }
 
 bool BalKDecomp::isBalanced(const vector<DecompComponent>& Parts, int CompSize)
